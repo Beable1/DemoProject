@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<AppRole>
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Categories</h4>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Role Name</td>
+                        <td>Delete</td>
+                        <td>Update</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                           
+                            <td> <a class="btn btn-primary mr-2" asp-action="Delete" asp-controller="Roles" asp-route-id="@item.Id"> Delete </a>  </td>
+                            <td>
+                                <button type="button" class="btn btn-primary mr-2 update-button"
+                                        data-id="@item.Id"
+                                        data-name="@item.Name">
+                                        
+                                    Update
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+
+            <!-- Hidden form -->
+            <div id="roleUpdateForm" class="card mt-3" style="display: none;">
+                <div class="card-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="Id">Id</label>
+                            <span id="Id" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input id="Name" class="form-control">
+                        </div>
+                       
+
+                        <button type="button" id="updateRole" class="btn btn-primary mr-2 ">
+
+                            Update
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create</h4>
+
+            <form asp-action="Create" method="post" asp-controller="Roles">
+
+                <div class="form-group">
+                    <label name="Name"> Name</label>
+                    <input name="Name" class="form-control" />
+
+                </div>
+
+                
+
+                <div class="form-group">
+                    <input type="submit" name="Create" class="btn btn-primary mr-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.update-button').on('click', function () {
+
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+               
+
+
+
+                var isFormVisible = $('#roleUpdateForm').is(':visible');
+                var currentId = $('#Id').text();
+
+                if (isFormVisible && currentId == id) {
+
+                    $('#roleUpdateForm').slideUp();
+                } else {
+
+                    $('#Id').text(id);
+                    $('#Name').val(name);
+                   
+
+
+
+
+                    $('#roleUpdateForm').slideDown();
+                }
+            });
+        });
+
+        $("#updateRole").click(function () {
+
+            let role = {
+                Id: $("#Id").text(),
+                Name: $("#Name").val(),
+                
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/admin/roles/update",
+                data: role,
+                success: function (func) {
+                    alert("güncellendi")
+                }
+            })
+
+        })
+
+
+    </script>
+}

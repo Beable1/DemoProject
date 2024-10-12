@@ -1,0 +1,27 @@
+﻿
+@model List<Blog>
+
+
+<section>
+    <div class="container">
+        <div class="owl-carousel owl-theme blog-slider">
+
+                    @foreach(var item in Model)
+                    {
+                    <div class="card blog__slide text-center">
+                        <div class="blog__slide__img">
+                                <img class="card-img rounded-0" src="~/BlogThumbnails/@item.BlogThumbnailImage" alt="">
+                        </div>
+                        <div class="blog__slide__content">
+                            <a class="blog__slide__label" href="#">@item.Category.CategoryName</a>
+                            <h3><a href="#">@item.BlogTitle</a></h3>
+                            <p>@item.CreatedTime</p>
+                        </div>
+                    </div>
+                    }
+
+                
+        </div>
+            
+    </div>
+</section>

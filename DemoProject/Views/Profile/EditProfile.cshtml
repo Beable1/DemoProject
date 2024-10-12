@@ -1,0 +1,65 @@
+﻿@model WriterDto
+@{
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    var Id = ViewBag.id;
+}
+
+<div class="col-8 mx-auto">
+    <div class="card h-100 d-flex justify-content-center align-items-center">
+       
+        <div class="row  w-100 px-5 py-4">
+            <div class="mx-auto">
+            <h4>Edit Profile</h4>
+            </div>
+            <div class="col-md-6 mx-auto">
+
+                <form asp-action="EditProfile" method="post" asp-controller="Profile" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" name="WriterId" value="@Id" />
+
+                    <div class="form-group">
+                        <label for="WriterName">Name</label>
+                        <input type="text" asp-for="WriterName" name="WriterName" class="form-control" />
+                        <span asp-validation-for="WriterName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BlogTitle">About</label>
+                        <textarea asp-for="WriterAbout" name="WriterAbout" class="form-control"></textarea>
+                        <span asp-validation-for="WriterAbout" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="WriterMail">Email</label>
+                        <input type="text" asp-for="WriterMail" name="WriterMail" class="form-control"></input>
+                        <span asp-validation-for="WriterMail" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="WriterPassword">Password</label>
+                        <input type="text" asp-for="WriterPassword" name="WriterPassword" class="form-control"></input>
+                        <span asp-validation-for="WriterPassword" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Profile Image</label>
+                        <input type="file" name="WriterImage" />
+                    </div>
+                    
+                    
+
+                    <div class="form-group">
+                        <input type="submit" name="Save" class="card w-30 my-4 p-3 align-items-center  " />
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+       
+
+    </div>
+</div>

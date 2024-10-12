@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<Writer>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Writers</h4>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Name</td>
+                        <td>Mail</td>
+
+                        <td>Delete</td>
+                        <td>Update</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.WriterName</td>
+                            <td>@item.WriterMail</td>
+
+                            <td>
+                                <a class="btn btn-primary mr-2" asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary mr-2 view-button"
+                                        data-id="@item.Id"
+                                        data-name="@item.WriterName"
+                                        data-about="@item.WriterAbout"
+                                        data-image="@item.WriterImage"
+                                        data-mail="@item.WriterMail">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Hidden form -->
+            <div id="writerDetailsForm" class="card mt-3" style="display: none;">
+                <div class="card-body">
+                    <h5>Writer Details</h5>
+                    <form>
+                        <div class="form-group">
+                            <label for="writerId">Id</label>
+                            <span id="writerId" class="form-control"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="writerName">Name</label>
+                            <span id="writerName" class="form-control"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="writerAbout">About</label>
+                            <span id="writerAbout" class="form-control"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="writerMail">Mail</label>
+                            <span id="writerMail" class="form-control"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="writerImage">Image</label>
+                            <br />
+                            <img id="writerImage" class="img-fluid" src="#" alt="Writer Image" style="display: none;" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.view-button').on('click', function () {
+               
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var about = $(this).data('about');
+                var image = $(this).data('image');
+                var mail = $(this).data('mail');
+
+                
+                var isFormVisible = $('#writerDetailsForm').is(':visible');
+                var currentId = $('#writerId').text();
+
+                if (isFormVisible && currentId == id) {
+                   
+                    $('#writerDetailsForm').slideUp();
+                } else {
+                    
+                    $('#writerId').text(id);
+                    $('#writerName').text(name);
+                    $('#writerAbout').text(about);
+                    $('#writerMail').text(mail);
+
+                    if (image) {
+                        var imageUrl = '@Url.Content("~/BlogThumbnails/")' + image;
+                        $('#writerImage').attr('src', imageUrl).show();
+                    } else {
+                        $('#writerImage').hide();
+                    }
+
+                    $('#writerDetailsForm').slideDown();
+                }
+            });
+        });
+
+    </script>
+}
+

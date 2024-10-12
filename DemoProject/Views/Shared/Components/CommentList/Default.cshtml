@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Comment>
+
+
+<div class="comments-area ">
+
+    <div class="comments">
+        @foreach (var comment in Model)
+        {
+
+            <div class="single-comment justify-content-between d-flex mb-4">
+                <div class="user justify-content-between d-flex">
+                    <div class="thumb">
+                        <img src="" alt="">
+                    </div>
+                    <div class="desc">
+                        <h5><a href="#">@comment.CommentUserName</a></h5>
+                        <p class="date">@(((DateTime)comment.CreatedTime).ToString("dd-MM-yyyy HH:mm")) </p>
+                        <p class="comment">
+                            @comment.CommentContent
+                        </p>
+                    </div>
+                </div>
+                <div class="reply-btn">
+                    <a href="" class="btn-reply text-uppercase">reply</a>
+                </div>
+            </div>
+
+
+        }
+        <div >
+            <p >       </p>
+        </div>
+    </div>
+
+   
+
+
+
+</div>

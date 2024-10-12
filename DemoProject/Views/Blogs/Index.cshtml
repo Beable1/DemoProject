@@ -1,0 +1,90 @@
+﻿@using X.PagedList
+@using X.Web.PagedList
+
+@model IPagedList<BlogDto>
+
+
+
+
+@{
+    var categoryDictionary = ViewBag.CategoryDictionary as Dictionary<int, string>;
+    var writerDictionary = ViewBag.WriterDictionary as Dictionary<int, string>;
+}
+
+<main class="site-main">
+    <!--================Hero Banner start =================-->
+    <section class="mb-30px">
+        <div class="container">
+            <div class="hero-banner">
+                <div class="hero-banner__content">
+                    <h3>Blogs</h3>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Hero Banner end =================-->
+
+
+          
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+        @foreach (var item in Model)
+        {
+
+                    
+                   
+
+                <div class="single-recent-blog-post">
+                    <div class="thumb">
+                        <img class="img-fluid" src="~/BlogThumbnails/@item.BlogThumbnailImage" style="height:500px" alt="">
+                        <ul class="thumb-info">
+                            <li><a href="#"><i class="ti-user"></i>@writerDictionary[item.WriterID]</a></li>
+                            <li><a href="#"><i class="ti-notepad"></i>@(((DateTime)item.CreatedTime).ToString("dd-MM-yyyy"))</a></li>
+                            
+                        </ul>
+                    </div>
+                    <div class="details mt-20">
+                        <a href="blog-single.html">
+                            <h3>
+                                @item.BlogTitle
+                            </h3>
+                        </a>
+                        <p class="tag-list-inline">Tag: <a href="#">@categoryDictionary[item.CategoryId]</a></p>
+                        <p>@item.BlogContent.Substring(0,item.BlogContent.Substring(0,150).LastIndexOf(" "))...</p>
+                        
+                            <a class="button" asp-area="" asp-controller="Blogs" asp-action="BlogDetails" asp-route-id="@item.Id">Read More  <i class="ti-arrow-right"></i></a>
+                    </div>
+                </div>
+
+           
+        }
+            </div>
+
+            @await Component.InvokeAsync("BlogSideContent")
+            </div>
+       
+            <!-- End Blog Post Siddebar -->
+        </div>
+
+
+        @Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new {page }),
+            new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        DisplayLinkToIndividualPages = true,
+        UlElementClasses = new[] { "pagination", "justify-content-center" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+
+
+@* 
+    @await Component.InvokeAsync("HomeSidebar") *@

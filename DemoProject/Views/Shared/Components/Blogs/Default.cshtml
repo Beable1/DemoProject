@@ -1,0 +1,13 @@
+﻿@model BlogRayting
+
+@{
+	int score = 0;
+
+	if (Model.BlogRaytingCount > 0)
+	{
+		score = Model.BlogTotalScore / Model.BlogRaytingCount;
+	}
+	
+}
+
+@score

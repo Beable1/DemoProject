@@ -1,0 +1,71 @@
+﻿
+
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    
+    <ul class="nav">
+        <li class="nav-item profile">
+            <div class="profile-desc">
+                <div class="profile-pic">
+                    
+                    <div class="profile-name">
+                        <h5 class="mb-0 font-weight-normal">Admin Panel</h5>
+                        
+                    </div>
+                </div>
+               
+            </div>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">Navigation</span>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" asp-action="index" asp-area="admin" asp-controller="widget">
+                <span class="menu-icon">
+                    <i class="mdi mdi-laptop"></i>
+                </span>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" asp-action="index" asp-controller="writer" asp-area="admin">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-card-details"></i>
+                </span>
+                <span class="menu-title">Users</span>
+                
+            </a>
+            
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" asp-action="index" asp-area="admin" asp-controller="category">
+                <span class="menu-icon">
+                    <i class="mdi mdi-apps"></i>
+                </span>
+                <span class="menu-title">Categories</span>
+            </a>
+        </li>
+       
+        <li class="nav-item menu-items">
+            <a class="nav-link" asp-action="index" asp-area="admin" asp-controller="Roles">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-switch"></i>
+                </span>
+                <span class="menu-title">Roles</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" asp-action="userrolelist" asp-area="admin" asp-controller="Roles">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-settings"></i>
+                </span>
+                <span class="menu-title">User Roles</span>
+            </a>
+        </li>
+
+       
+        
+       
+    </ul>
+</nav>

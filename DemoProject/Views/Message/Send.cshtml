@@ -1,0 +1,52 @@
+﻿@model Message2
+
+@{
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    
+}
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Send" method="post" asp-controller="Message" >
+
+            
+
+            <div class="form-group">
+                <label for="Subject">Subject</label>
+                <input type="text" asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="MessageDetails">Message</label>
+                <textarea asp-for="MessageDetails" class="form-control"></textarea>
+                <span asp-validation-for="MessageDetails" class="text-danger"></span>
+            </div>
+
+
+            
+            
+
+            <div class="form-group">
+                <label for="ReceiverID">User</label>
+                <select asp-for="ReceiverID"  class="form-control">
+                    <option value="0" selected>Select</option>
+                    @foreach (var writer in ViewBag.writers)
+                    {
+                        <option value="@writer.Value">@writer.Text</option>
+                    }
+                </select>
+                <span class="text-danger" asp-validation-for="ReceiverID"></span>
+            </div>
+
+           
+           
+            <div class="form-group ">
+                <input type="submit" name="Save" class="card w-20 m-4 py-2 align-items-center " />
+            </div>
+        </form>
+
+    </div>
+
+</div>

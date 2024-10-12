@@ -1,0 +1,78 @@
+﻿@{
+    var BlogCategory = ViewBag.blogCategory;
+    var categories = ViewBag.categories;
+    var writer = ViewBag.writer;
+}
+
+
+
+@model BlogDetailsDto;
+
+<section class="mb-30px">
+    <div class="container">
+        <div class="hero-banner hero-banner--sm">
+            <div class="hero-banner__content">
+                <h1>Blog Details</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@BlogCategory</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-post-area section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="main_blog_details">
+                    <img class="img-fluid" src="~/BlogThumbnails/@Model.BlogThumbnailImage" alt="">
+                    <a href="#"><h4>@Model.BlogTitle</h4></a>
+                    <div class="user_details">
+                        <div class="float-left">
+                            <a href="#">@BlogCategory</a>
+                        </div>
+                        <div class="float-right mt-sm-0 mt-3">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h5>@writer.WriterName</h5>
+                                    <p>@(((DateTime)Model.CreatedTime).ToString("dd-MM-yyyy HH:mm"))</p>
+                                </div>
+                                <div class="d-flex">
+                                    <img width="42" height="42" src="~/BlogThumbnails/@writer.WriterImage" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>@Model.BlogContent</p>
+                     <div class="news_d_footer flex-column flex-sm-row">
+                            
+                        <a class="justify-content-sm-center mt-sm-0 mt-2" href="#"><span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>@Model.Comments.Count</a>
+                        <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                            <a href="#"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                @* <partial name="~/Views/Partials/CommentsPartial.cshtml" model="Model.Comments" /> *@
+
+                @await Component.InvokeAsync("CommentList",Model.Id)    
+                @* @await Component.InvokeAsync("PostComment") *@
+                <partial name="~/Views/Partials/CommentsPartial.cshtml" model="Model.Id" /> 
+                
+
+            </div>
+            @await Component.InvokeAsync("Sidebar", Model.WriterId)
+            @* <partial name="~/Views/Partials/SidebarPartial.cshtml" model="categories" /> *@
+        </div>
+    </div>
+</section>

@@ -1,0 +1,150 @@
+﻿@using Newtonsoft.Json;
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-7">
+                        <div class="d-flex row ">
+                            <h3 class="ml-3 mt-1"> @ViewBag.WriterCount</h3>
+
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Total Users</h6>
+                    </div>
+                    <div class="col-4">
+                        <div class="icon icon-box-success w-100 h-100">
+                            <span class="mdi mdi-account icon-md py-1"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-7">
+                        <div class="d-flex row ">
+                            <h3 class="ml-3 mt-1"> @ViewBag.BlogCount</h3>
+
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Total Blogs</h6>
+                    </div>
+                    <div class="col-4">
+                        <div class="icon icon-box-success w-100 h-100">
+                            <span class="mdi mdi-book-open-page-variant icon-md py-1"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-7">
+                        <div class="d-flex row ">
+                            <h3 class="ml-3 mt-1"> @ViewBag.CommentCount</h3>
+
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Total Comments</h6>
+                    </div>
+                    <div class="col-4">
+                        <div class="icon icon-box-success w-100 h-100">
+                            <span class="mdi mdi-comment icon-md py-1"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-7">
+                        <div class="d-flex row ">
+                            <h3 class="ml-3 mt-1"> 5/ @ViewBag.TotalRating</h3>
+
+                        </div>
+                        <h6 class="text-muted font-weight-normal">Total Rating</h6>
+                    </div>
+                    <div class="col-4">
+                        <div class="icon icon-box-success w-100 h-100">
+                            <span class="mdi mdi-star-circle icon-md py-1"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Category Blog Count Chart</h4>
+            <canvas id="categoryBarChart" style="height: 271px; display: block; width: 543px;" width="678" height="338"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Veriyi Razor üzerinden JSON formatında JS'ye aktarın
+            var categoryData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.CategoryData));
+
+            // Kategorileri ve blog sayısını alın
+            var labels = categoryData.map(item => item.CategoryName);
+            var blogCounts = categoryData.map(item => item.BlogCount);
+
+            var ctx = document.getElementById('categoryBarChart').getContext('2d');
+            var categoryBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels, // Kategoriler
+                    datasets: [{
+                        label: 'Blog Count',
+                        data: blogCounts, // Blog Sayıları
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Category
+
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create</h4>
+
+            <form asp-action="Update" method="post" asp-controller="Category" >
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="CategoryName">Category Name</label>
+                    <input asp-for="CategoryName" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryDescription">Description</label>
+                    <input asp-for="CategoryDescription" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="Create" class="btn btn-primary mr-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

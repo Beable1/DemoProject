@@ -1,0 +1,9 @@
+﻿@if (ViewBag.CurrentUser == null)
+{
+	<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="User" asp-action="Register">Sign up</a></li>
+	<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+}else{
+	<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="User" asp-action="Logout">Log Out</a></li>
+	<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="profile" asp-action="details">Profile</a></li>
+}
+
